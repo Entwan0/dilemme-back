@@ -63,7 +63,7 @@ public class Main {
   @CrossOrigin(origins = "*")
   @ResponseBody
   public String play(@RequestBody String loginForm) {
-      System.out.print(loginForm);
+      System.out.println(loginForm);
       return "oh !";
   }
 
