@@ -24,6 +24,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -51,9 +53,18 @@ public class Main {
   }
   
   @RequestMapping(value = "/test", method = RequestMethod.GET)
+  @CrossOrigin(origins = "*")
   @ResponseBody
-  public String getFoosBySimplePath() {
-      return "test";
+  public int getFoosBySimplePath() {
+      return 1;
+  }
+  
+  @RequestMapping(value = "/play", method = RequestMethod.POST)
+  @CrossOrigin(origins = "*")
+  @ResponseBody
+  public String play(@RequestBody String loginForm) {
+      System.out.print(loginForm);
+      return "oh !";
   }
 
   @RequestMapping("/")
