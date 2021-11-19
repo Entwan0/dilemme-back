@@ -52,19 +52,47 @@ public class Main {
     SpringApplication.run(Main.class, args);
   }
   
-  @RequestMapping(value = "/test", method = RequestMethod.GET)
+  ArrayList<String> players = new ArrayList<String>();
+  @RequestMapping(value = "/player", method = RequestMethod.GET)
   @CrossOrigin(origins = "*")
   @ResponseBody
   public int getFoosBySimplePath() {
-      return 1;
+      int result = 1;
+      if(players.size() == 0) {
+    	  players.add("J1");
+    	  result = 1;
+      }else if(players.contains("J2") && !players.contains("J1")){
+    	  players.add("J1");
+    	  result = 1;
+      }else if(!players.contains("J2") && players.contains("J1")){
+    	  players.add("J2");
+    	  result = 2;
+      }else {
+    	  result = 2;
+      }
+      return result;
   }
   
   @RequestMapping(value = "/play", method = RequestMethod.POST)
   @CrossOrigin(origins = "*")
   @ResponseBody
-  public String play(@RequestBody String loginForm) {
-      System.out.println(loginForm);
-      return "oh !";
+  public String play(@RequestBody String moove) {
+      System.out.println(moove);
+      return "play !";
+  }
+  
+  @RequestMapping(value = "/leave", method = RequestMethod.POST)
+  @CrossOrigin(origins = "*")
+  @ResponseBody
+  public String leave(@RequestBody int player) {
+      System.out.println(player);
+      if(player == 1) {
+    	  this.players.remove("J1");
+      }else {
+    	  this.players.remove("J2");
+      }
+      System.out.println(this.players);
+      return "leave !";
   }
 
   @RequestMapping("/")
