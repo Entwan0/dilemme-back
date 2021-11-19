@@ -39,11 +39,14 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @Controller
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @SpringBootApplication
 public class Main {
 
   @Value("${spring.datasource.url}")
   private String dbUrl;
+  
+  private int playerTurn = 1;
 
   @Autowired
   private DataSource dataSource;
@@ -54,7 +57,7 @@ public class Main {
   
   ArrayList<String> players = new ArrayList<String>();
   @RequestMapping(value = "/player", method = RequestMethod.GET)
-  @CrossOrigin(origins = "*")
+  @CrossOrigin(origins = "*", allowedHeaders = "*")
   @ResponseBody
   public int getFoosBySimplePath() {
       int result = 1;
@@ -73,16 +76,27 @@ public class Main {
       return result;
   }
   
+  @RequestMapping(value = "/waitOtherPLayer", method = RequestMethod.POST)
+  @CrossOrigin(origins = "*", allowedHeaders = "*")
+  @ResponseBody
+  public boolean waitOtherPLayer(@RequestBody int player) {
+	  if(this.playerTurn == player) return true;
+	  else return false;
+  }
+  
+  @CrossOrigin(origins = "*", allowedHeaders = "*")
   @RequestMapping(value = "/play", method = RequestMethod.POST)
-  @CrossOrigin(origins = "*")
   @ResponseBody
   public String play(@RequestBody String moove) {
       System.out.println(moove);
+      if(this.playerTurn == 1)this.playerTurn = 2;
+      else this.playerTurn = 1;
+      System.out.println(this.playerTurn);
       return "play !";
   }
   
   @RequestMapping(value = "/leave", method = RequestMethod.POST)
-  @CrossOrigin(origins = "*")
+  @CrossOrigin(origins = "*", allowedHeaders = "*")
   @ResponseBody
   public String leave(@RequestBody int player) {
       System.out.println(player);
