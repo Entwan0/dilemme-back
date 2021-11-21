@@ -84,6 +84,8 @@ public class Main {
 	@ResponseBody
 	public String restart() {
 		this.players.clear();
+		this.round.getGame().setPointJ1(0);
+		this.round.getGame().setPointJ2(0);
 		return "t";
 	}
 
