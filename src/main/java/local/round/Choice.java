@@ -1,6 +1,6 @@
 package local.round;
 
 public enum Choice {
-	Cooperate, Betray;
+	Cooperate, Betray,Surrend;
 
 }
