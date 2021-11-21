@@ -50,14 +50,12 @@ public class Game {
 	}
 	
 	public void run_game(String namep1, String namep2, int numberOfRounds) {
-		Player player1 = new Player(namep1,0);
-		Player player2 = new Player(namep2,0);
-		
-		setPlayer1(player1);
-		setPlayer2(player2);
+
+		setPlayer1(new Player(namep1));
+		setPlayer2(new Player(namep2));
 		
 	    for (int i = 1; i <= numberOfRounds; i++ ) {
-	    	Round round = new Round(i , this.player1, this.player2);
+	    	Round round = new Round(i ,player1, player2);
 	    	round.run_round();
 	    	rounds.add(round);
 	    	}
@@ -82,10 +80,8 @@ public class Game {
 
 		}
             
-        
-	
+
 				
-	
 	
 	public static void main(String args[]) { 
 		

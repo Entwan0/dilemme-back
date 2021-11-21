@@ -1,24 +1,32 @@
 package round;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
 	
 	private String name;
 	private int points; 
-	private Choice choice;
+	private List<Choice> choices;
 	private boolean abandoned;
+	private Strat strategy;
 	
-	
-	public Player(String name, int points) {
-		this.name = name;
-		this.points = points;
-		this.abandoned = false;
-	}
 	
 	public Player(String name) {
 		this.name = name;
 		this.points = 0;
+		this.choices = new ArrayList<Choice>();
+		this.abandoned = false;
 	}
 	
+	public boolean isAbandoned() {
+		return abandoned;
+	}
+
+	public void setAbandoned(boolean abandoned) {
+		this.abandoned = abandoned;
+	}
+
 	public Player() {
 
 	}
@@ -35,13 +43,29 @@ public class Player {
 	public void setPoints(int points) {
 		this.points = points;
 	}
-	public Choice getChoice() {
-		return choice;
+	public Choice getChoice(int numRencontre) {
+		return choices.get(numRencontre - 1);
 	}
-	public void setChoice(Choice choice) {
-		this.choice = choice;
+	
+	public List<Choice> getChoices() {
+		return choices;
+	}
+
+	public void setChoices(List<Choice> choices) {
+		this.choices = choices;
 	}
 	
 
+	public void addChoice(Choice choice) {
+		this.choices.add(choice);
+	}
+	
+	public Strat getStrategy() {
+		return strategy;
+	}
+	
+	public void setStrategy(Strat strategy) {
+		this.strategy = strategy;
+	}
 
 }
