@@ -86,6 +86,7 @@ public class Main {
 		this.players.clear();
 		this.round.getGame().setPointJ1(0);
 		this.round.getGame().setPointJ2(0);
+		this.round = new Round();
 		return "t";
 	}
 
