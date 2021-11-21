@@ -78,6 +78,15 @@ public class Main {
 		}
 		return result;
 	}
+	
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@RequestMapping(value = "/restart", method = RequestMethod.POST)
+	@ResponseBody
+	public String restart() {
+		this.players.clear();
+		return "t";
+	}
+
 
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	@RequestMapping(value = "/waitOtherPLayer", method = RequestMethod.POST)
@@ -105,8 +114,8 @@ public class Main {
 		}
 	}
 
-	@RequestMapping(value = "/leave", method = RequestMethod.POST)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@RequestMapping(value = "/leave", method = RequestMethod.POST)
 	@ResponseBody
 	public String leave(@RequestBody int player) {
 		System.out.println(player);
