@@ -59,8 +59,8 @@ public class Main {
 
 	ArrayList<String> players = new ArrayList<String>();
 
-	@RequestMapping(value = "/player", method = RequestMethod.GET)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@RequestMapping(value = "/player", method = RequestMethod.GET)
 	@ResponseBody
 	public int players() {
 		int result = 1;
@@ -79,8 +79,8 @@ public class Main {
 		return result;
 	}
 
-	@RequestMapping(value = "/waitOtherPLayer", method = RequestMethod.POST)
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@RequestMapping(value = "/waitOtherPLayer", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean waitOtherPLayer(@RequestBody int player) {
 		if (this.playerTurn == player)
@@ -101,8 +101,6 @@ public class Main {
 		} else {
 			this.choiceJ2 = moove;
 			this.round.treat_choices(this.choiceJ1,this.choiceJ2);
-			System.out.println("point J1 = " + this.round.getGame().getPointJ1());
-			System.out.println("point J2 = " + this.round.getGame().getPointJ2());
 			this.playerTurn = 1;
 		}
 	}
