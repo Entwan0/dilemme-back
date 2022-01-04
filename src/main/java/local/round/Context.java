@@ -1,6 +1,6 @@
 package local.round;
 
-import Strategy.*;
+import Strategy.Strategy;
 
 public class Context {
 	private Strategy strategy;

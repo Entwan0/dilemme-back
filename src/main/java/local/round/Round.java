@@ -1,6 +1,7 @@
 package local.round;
 
 import Strategy.*;
+import Strategy.newStrategy.*;
 
 public class Round {
 
@@ -25,6 +26,8 @@ public class Round {
 			System.out.println(othPlayer.getName() + "'s last choice was " + othPlayer.getChoice(numRound - 1));
 		}
 
+		System.out.println("");
+		
 		Choice choice;
 		if (!currPlayer.isAbandoned()) {
 			String choice_user = LectureClavier.lireChaine();
@@ -65,10 +68,18 @@ public class Round {
 		System.out.println(
 				" G for Give or take : In every round you follow the other player's choices on the round before ( this option is not available on the firs round ");
 		System.out.println(" B to always betray ");
-		System.out.println(" C to always cooperate  ");
+		System.out.println(" C to always cooperate");
+		System.out.println(" GR to gradual");
+		System.out.println(" GTG to give to give");
+		System.out.println(" GTWOG to give two give");
+		System.out.println(" GTWOGR to give two give randomly");
 
 		String choice_user = LectureClavier.lireChaine();
-		while (("G".equals(choice_user)) || ("g".equals(choice_user)) && (numRound == 1)) {
+		while (("G".equals(choice_user)) ||
+				("g".equals(choice_user)) ||
+				("GR".equals(choice_user)) ||
+				("gr".equals(choice_user)) &&
+				(numRound == 1)) {
 			System.out.println(" this Strategy is not possible on the first round  ");
 			choice_user = LectureClavier.lireChaine();
 		}
@@ -76,19 +87,41 @@ public class Round {
 		switch (choice_user) {
 		case "C":
 		case "c":
-			System.out.println("You've choosed to always cooperate");
 			currPlayer.setStrategy(Strat.AlwaysCooperate);
 			break;
 
 		case "B":
 		case "b":
-			System.out.println("You've choosed to always betray");
 			currPlayer.setStrategy(Strat.AlwaysBetray);
+			break;
+			
+		case "G":
+		case "g":
+			currPlayer.setStrategy(Strat.GiveOrTake);
+			break;
+			
+		case "GR":
+		case "gr":
+			currPlayer.setStrategy(Strat.Gradual);
+			break;
+			
+		case "GTG":
+		case "gtg":
+			currPlayer.setStrategy(Strat.GiveToGive);
+			break;
+			
+		case "GTWOG":
+		case "gtwog":
+			currPlayer.setStrategy(Strat.GiveTwoGive);
+			break;
+			
+		case "GTWOGR":
+		case "gtwogr":
+			currPlayer.setStrategy(Strat.GiveTwoGiveRandomly);
 			break;
 
 		default:
-			System.out.println("You've choosed to give or take");
-			currPlayer.setStrategy(Strat.GiveOrTake);
+			currPlayer.setStrategy(Strat.AlwaysCooperate);
 			break;
 
 		}
@@ -109,10 +142,40 @@ public class Round {
 			context = new Context(new AlwaysCooperate());
 			choice = context.executeStrategy(currPlayer, othPlayer);
 			break;
+			
+		case GiveOrTake:
+			System.out.println("You've choosed to cooperate");
+			context = new Context(new GiveOrTake());
+			choice = context.executeStrategy(currPlayer, othPlayer);
+			break;
+			
+		case Gradual:
+			System.out.println("You've choosed to Gradual");
+			context = new Context(new StrategyGraduel());
+			choice = context.executeStrategy(currPlayer, othPlayer);
+			break;
+			
+		case GiveTwoGive:
+			System.out.println("You've choosed to give two give");
+			context = new Context(new StrategyDonnantDeuxDonnant());
+			choice = context.executeStrategy(currPlayer, othPlayer);
+			break;
+			
+		case GiveTwoGiveRandomly:
+			System.out.println("You've choosed to give two give randomly");
+			context = new Context(new StrategyDonnantDeuxDonnantAleatoire());
+			choice = context.executeStrategy(currPlayer, othPlayer);
+			break;
+			
+		case GiveToGive:
+			System.out.println("You've choosed to give to give");
+			context = new Context(new StrategyDonnantDonnant());
+			choice = context.executeStrategy(currPlayer, othPlayer);
+			break;
 
 		default:
-			currPlayer.setStrategy(Strat.GiveOrTake);
-			context = new Context(new GiveOrTake());
+			currPlayer.setStrategy(Strat.AlwaysCooperate);
+			context = new Context(new AlwaysCooperate());
 			choice = context.executeStrategy(currPlayer, othPlayer);
 			break;
 
@@ -130,11 +193,11 @@ public class Round {
 			if (choice_p1 == Choice.Cooperate) {
 				player1.setPoints(player1.getPoints() + Point.C.getValue());
 				player2.setPoints(player2.getPoints() + Point.C.getValue());
-				System.out.println("You cooperate both you won 3 points");
+				System.out.println("You cooperate both you won 3 points \n");
 			} else if (choice_p1 == Choice.Betray) {
 				player1.setPoints(player1.getPoints() + Point.P.getValue());
 				player2.setPoints(player2.getPoints() + Point.P.getValue());
-				System.out.println("You betrayed both you won 1 point");
+				System.out.println("You betrayed both you won 1 point \n");
 			}
 		}
 
